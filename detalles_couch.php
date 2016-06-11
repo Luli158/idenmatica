@@ -53,7 +53,7 @@
 					$con=connection();
 					$result=mysqli_query($con, "select premium from usuarios where idusuario = '$id'");
 					$f = $result -> fetch_row();
-					if(!empty($f[0]))
+					if($f != 0)
 					{	
 						if($couch['foto']==null)
 						{?>
@@ -66,12 +66,12 @@
 									<?php 
 									}
 								}
-								else
-								{?>
-									<img src="img/Favicon.png"/>
-								<?php
-								}
-								?>
+					else
+						{?>
+							<img src="img/Favicon.png"/>
+						<?php
+						}
+					?>
 				</div>
 				</div>
 				<div class='en_caja'>
@@ -95,7 +95,7 @@
 					</p>
 				</div>
 				<div class="campo">
-						<input type="button" value="Volver" onClick="window.location.href='index.php' ">
+						<input type="button" value="Volver" onClick="window.location.href='buscar.php' ">
 					</div>
 					<br>
 				</div>

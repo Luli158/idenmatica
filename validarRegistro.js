@@ -26,8 +26,8 @@ function validarRegistro(){
 		document.registro.user.focus();
 		return false;
 	}
-	if ((document.registro.pass.value.length < 4 || document.registro.pass.value.length > 15) & (!(tiene_numeros(document.registro.pass.value)) || !(tiene_letras(document.registro.pass.value)))) {
-		alert("Ingrese una contrase\u00F1a con caracteres y numeros, entre 4 y hasta 15 caracteres.");
+	if ((document.registro.pass.value.length < 4 || document.registro.pass.value.length > 15) & (!(tiene_numeros(document.registro.pass.value)) & !(tiene_letras(document.registro.pass.value)))) {
+		alert("Ingrese una contrase\u00F1a entre 4 y 15 caracteres.");
         document.registro.pass.focus();
         return (false);
 	}

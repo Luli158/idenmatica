@@ -45,30 +45,6 @@
 						</div>
 					</div>
 				</form>
-				<form method="POST" name="bloquear" action="./Vbloquear_tipo.php">
-						<?php
-    						if($tipo['bloqueado']==0){
-    					?>
-    							<div class="campo">
-    								<p>Bloquear tipo?</p>
-    								<input type="hidden" name="id" value="<?php echo $id ?>">
-    								<input type="hidden" name="bloqueado" value="1">
-									<input type="submit" value="Si">
-    							</div>
-    					<?php
-    						}
-    						else{
-    					?>
-    							<div class="campo">
-    								<p>Desbloquear tipo?</p>   					
-    								<input type="hidden" name="id" value="<?php echo $id ?>">
-    								<input type="hidden" name="bloqueado" value="0">
-									<input type="submit" value="Si">
-    							</div>
-    					<?php
-    						}
-    					?>
-    			</form>
 			</div>
 		</div>
 	</body>

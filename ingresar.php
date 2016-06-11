@@ -12,6 +12,7 @@
 				<p> Email:&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' name='email' id='email' value='<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>' required ></p> 
 				<p> Clave:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='password' name='clave' id='clave' required></p>
 				<input type='submit' value='Enviar' onClick='return validarIngreso()'>
+				<a href='recuperarContra.php'><input type='button' value='Recuperar contrase&ntilde;a'></a>
 				<a href='index.php'><input type='button' value='Volver'></a>
 				<?php
 			if ($_POST) { 

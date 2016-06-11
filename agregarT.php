@@ -24,8 +24,7 @@ session_start();
 			<br>
 			<input type="submit" value="Agregar">
 			<input type="button" value="Cancelar" onClick="window.location.href='vistaba.php' ">
-		</form>
-<?php 
+			<?php 
  if ($_POST) {
 		if (isset($_POST['tipo'])) 
 		{
@@ -50,6 +49,7 @@ session_start();
 		}	
 		else { echo "error";}
 	}?>
+		</form>
 	</div>
 	</div>
 	</div>

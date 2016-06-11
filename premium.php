@@ -11,8 +11,15 @@
 		<title>CouchInn</title>
 	</head>
 	<body background="img/fondoo.png">
+	<?php include_once ("menu.php");?> 
 		<div class='ingresar' id='premium' >
-			<h1 style="color:6d6d6d">Premium</h1>
+			<h1 style="color:FFFFFF"><img src='img/estrella.png' height='15px' width='15px'>
+			<img src='img/estrella.png' height='15px' width='15px'>&nbsp;&nbsp;Pasate a Premium!&nbsp;
+			<img src='img/estrella.png' height='15px' width='15px'>
+			<img src='img/estrella.png' height='15px' width='15px'></h1>
+			
+			<a style="color:6d6d6d; font-size:25px;">Disfrutá de tus fotos en todas tus publicaciones</a><br><br>
+			
 			<form method='post' name='premium' action='#'>
 				<p> Numero de tarjeta:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='number' name='numero' id='numero' required></p>
 				<p> Codigo de seguridad:&nbsp;&nbsp;<input type='password' name='clave' id='clave' required></p>

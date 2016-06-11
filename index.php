@@ -36,7 +36,7 @@ if(!isset($_SESSION))
 				<script src="slideShow.js"></script>
 			<br>
 			<div class="op">
-				<div class="opc"><a href="publicar.php"><img class="opcion" src="img/couch.png"></a></div>
+				<div class="opc"><a href="quienes.php"><img class="opcion" src="img/couch.png"></a></div>
 				<div class="opc"><a href="buscar.php"><img class="opcion" src="img/buscarc.png"></a></div>
 				<div class="opc"><a href="contacto.php"><img class="opcion" src="img/contacto.png"></a></div>
 			</div>

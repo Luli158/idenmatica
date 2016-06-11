@@ -29,7 +29,7 @@
 										$result=mysqli_query($conec, "SELECT * FROM usuarios WHERE idusuario='$usuario'");
 										$p= $result->fetch_assoc();
 										if ($p['premium']=='1') {?>
-											<li><a onClick='alert("Usted ya es usuario Premium")'><img src='img/estrella.png' height='15px' width='15px'>&nbsp;PREMIUM&nbsp;<img src='img/estrella.png' height='15px' width='15px'></a></li><?php }
+											<li><a onClick='alert("Usted ya es usuario Premium")'><img src='img/estrella.png' height='15px' width='15px'>&nbsp;ES PREMIUM&nbsp;<img src='img/estrella.png' height='15px' width='15px'></a></li><?php }
 										else{?><li><a href="premium.php">PREMIUM</a></li><?php }}
 									else{?><li><a href="premium.php" onClick='alert("Debe iniciar sesión para acceder al servicio Premium")'>PREMIUM</a></li><?php }?>
 									

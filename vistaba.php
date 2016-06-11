@@ -53,16 +53,38 @@ session_start();
 										while ($tipos= $result->fetch_assoc()){
 							?> 
 							<script language="Javascript">
-								function preguntar(){
-									eliminar=confirm("¿Deseas eliminar este registro?");
+								function preguntar(idtipo){
+									eliminar=confirm("¿Deseas eliminar este registro? ");
 									if (eliminar)
-										window.location.href = "eliminarT.php?id=<?php echo $tipos["idtipo"];?>"; //página web a la que te redirecciona si confirmas la eliminación
+										window.location.href = "eliminarT.php?id=" + idtipo; 
 								}
 							</script>
 								<div class='textoba'>
-									<?php echo $tipos["nombre"];?> <a href="javascript:preguntar()"><img src="img/eliminar.png" width=15px height=15px></a>
+									<?php echo $tipos["nombre"];?> <a href="javascript:preguntar(<?php echo $tipos['idtipo']?>)"><img src="img/eliminar.png" width=15px height=15px></a>
 									<a href="modificar_tipo.php?id=<?php echo $tipos["idtipo"]; ?>"><img src="img/modificar.png" width=15px height=15px></a>
-								</div>
+							<form method="POST" name="bloquear" action="./Vbloquear_tipo.php">
+						<?php
+    						if($tipos['bloqueado']==0){
+    					?>
+    							<div class="campo">
+    								<input type="hidden" name="id" value="<?php echo $tipos["idtipo"]; ?>">
+    								<input type="hidden" name="bloqueado" value="1">
+									<input type="submit" value="Bloquear">
+    							</div>
+    					<?php
+    						}
+    						else{
+    					?>
+    							<div class="campo">				
+    								<input type="hidden" name="id" value="<?php echo $tipos["idtipo"]; ?>">
+    								<input type="hidden" name="bloqueado" value="0">
+									<input type="submit" value="Desbloquear">
+    							</div>
+    					<?php
+    						}
+    					?>
+    			</form>
+				</div>
 							<?php
 								}} 
 							?>

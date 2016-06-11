@@ -10,7 +10,7 @@ include_once('connection.php');
 $conp= connection();
 $sql= "select * from couch WHERE idtipo = $idt";
 $result= $conp->query ($sql);
-	if (mysqli_num_rows($result) == 0){ 
+	if (mysqli_num_rows($result) == 0){
 	 $conp->query("DELETE FROM tipos WHERE idtipo = $idt");
 		?>
 		    <script type="text/javascript"> alert ("El tipo fue eliminado correctamente"); 
@@ -18,7 +18,8 @@ $result= $conp->query ($sql);
 	<?php }
 	
 	else {
-		echo " ";?> 
+		echo " ";
+		?> 
 		<script type="text/javascript"> alert ("No se puede eliminar el tipo, tiene couches asociados"); 
 		window.location.href='vistaba.php'; </script>
 		<?php	
