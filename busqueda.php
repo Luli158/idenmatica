@@ -94,9 +94,9 @@ function getCouches()
 				
 		}
 		
-		$consulta = mysqli_query($con, $sql);
 		
-				return $consulta;
+		
+				return $sql;
 		
 
 }

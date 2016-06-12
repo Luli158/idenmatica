@@ -55,7 +55,10 @@ if(!isset($_SESSION))
 					<?php
 									include_once ("busqueda.php");
 									$couches = getCouches(); 
-									while ($couch = mysqli_fetch_assoc($couches))
+									
+									if ($resultado = mysqli_query ($conp,$couches))
+									{ 
+									while ($couch = mysqli_fetch_assoc($resultado))
 									{ 
 					?>
 						<div class="cou">
@@ -79,7 +82,8 @@ if(!isset($_SESSION))
 									<a style="text-decoration:none" href="detalles_couch.php?id=<?php echo $detalle;?>">Detalles...</a>
 								</div>
 						</div>
-								<?php } ?>
+								<?php } }
+								else {echo "nada";}?>
 						
 				</div>	
 		    <!--<div class=pie>
