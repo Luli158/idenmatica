@@ -7,6 +7,7 @@ if(!isset($_SESSION))
 	<head>
 		<link rel='stylesheet' type='text/css' href='estilos.css' media='screen'/>
 		<script type='text/javascript' href='java.js'></script>
+		<script type='text/javascript' src='verificarFecha.js'></script>
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 		<title>CouchInn</title>
@@ -29,7 +30,7 @@ if(!isset($_SESSION))
 				} ?>
 				<br>
 			<div class="formulario">
-				<form name="form1" action="buscar.php" method="post">
+				<form name="form1" action="buscar.php" method="post" onsubmit="return validarFecha()">
 				<div class="form1">
 					<div class="buscar">Buscar: <input type="text" name="texto"></div>
 					<?php		include_once ("connection.php");
@@ -44,17 +45,14 @@ if(!isset($_SESSION))
 								<option value="<?php echo $tipo['idtipo']; ?>"
 								<?php if (isset($_GET['tipo'])) {$ti=$_GET['tipo']; if ($tipo['idtipo']==$ti){ echo "selected='selected' "; } } ?>><?php echo $tipo['nombre']; ?></option><?php }?>
 							</select><?php } ?></div>
-							<div class="buscar">Fecha desde: <input type="date" name="fechad"></div>
-							<div class="buscar">Fecha hasta: <input type="date" name="fechah"></div>
+							<div class="buscar">Fecha desde: <input type="date" name="fechad" id="fechaDesde"></div>
+							<div class="buscar">Fecha hasta: <input type="date" name="fechah" id="fechaHasta"></div>
 							<div class="buscar"><input type="submit" value="Buscar"></div>
 						</div>
 					</form>
 			</div>
 			<div class="couches">
 					<?php
-					/*	$sql= "select * from couch c INNER JOIN tipos t where c.idtipo = t.idtipo";
-								if ($result= $conp->query ($sql))
-									{ while ($couch=$result->fetch_assoc()){ */
 									include_once ("busqueda.php");
 									$couches = getCouches(); 
 									while ($couch = mysqli_fetch_assoc($couches))

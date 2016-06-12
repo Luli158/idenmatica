@@ -15,59 +15,61 @@ function getCouches()
 			if (($texto =="") && ($tipo != "null") && ($fechad !="") && ($fechah !="")) 
 			{
 			echo "todo menos texto";
-			$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE t.idtipo = '$tipo' AND c.idcouch NOT IN 
+			$sql =	"SELECT * FROM couch c 
+				INNER JOIN tipos t
+                ON c.idtipo = t.idtipo
+                WHERE t.idtipo = $tipo AND c.despublicado = 0 AND c.idcouch NOT IN 
 				(SELECT s.idcouch FROM solicitudes s WHERE s.estado = 'aceptada' 
-				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah') OR (s.fechahasta BETWEEN '$fechad' AND '$fechah'))";
+				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah' OR s.fechahasta BETWEEN '$fechad' AND '$fechah'
+				OR '$fechad' BETWEEN s.fechadesde AND s.fechahasta OR '$fechah' BETWEEN s.fechadesde AND s.fechahasta))";
 				
 			}	
 			
 			else if (($texto !="") && ($tipo == "null") && ($fechad !="") && ($fechah !=""))
 			{
 						echo "todo menos tipo";
-			$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
-				OR c.ubicacion LIKE '%$texto%' AND c.idcouch NOT IN 
+			$sql ="SELECT * FROM couch c 
+				INNER JOIN tipos t 
+                ON c.idtipo = t.idtipo 
+                WHERE (c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
+				OR c.ubicacion LIKE '%$texto%') AND c.despublicado = 0 AND c.idcouch NOT IN 
 				(SELECT s.idcouch FROM solicitudes s WHERE s.estado = 'aceptada' 
-				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah') OR (s.fechahasta BETWEEN '$fechad' AND '$fechah'))";
+				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah' OR s.fechahasta BETWEEN '$fechad' AND '$fechah'
+				OR '$fechad' BETWEEN s.fechadesde AND s.fechahasta OR '$fechah' BETWEEN s.fechadesde AND s.fechahasta))";
+
 				
 			}
 			
 			else if (($texto !="") && ($tipo != "null") && ($fechad =="") && ($fechah ==""))
 			{
 						echo "todo menos fecha";
-			$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE  t.idtipo = '$tipo' AND c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
-				OR c.ubicacion LIKE '%$texto%'";
+			$sql ="SELECT * FROM couch c 
+				INNER JOIN tipos t 
+                ON c.idtipo = t.idtipo
+                WHERE  t.idtipo = '$tipo' AND c.despublicado = 0 AND (c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
+				OR c.ubicacion LIKE '%$texto%')";
 				
 			}
 			
 			else if (($texto =="") && ($tipo == "null") && ($fechad !="") && ($fechah !=""))
 			{
 						echo "fecha";
-			$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE c.idcouch NOT IN 
-				(SELECT s.idcouch FROM solicitudes s WHERE s.estado = 'aceptada' 
-				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah') OR (s.fechahasta BETWEEN '$fechad' AND '$fechah'))";
+			$sql ="SELECT * FROM couch c 
+				INNER JOIN tipos t 
+                ON c.idtipo = t.idtipo
+                WHERE c.despublicado = 0 AND c.idcouch NOT IN 
+			(SELECT s.idcouch FROM solicitudes s WHERE s.estado = 'aceptada' 
+				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah' OR s.fechahasta BETWEEN '$fechad' AND '$fechah'
+				OR '$fechad' BETWEEN s.fechadesde AND s.fechahasta OR '$fechah' BETWEEN s.fechadesde AND s.fechahasta))";
 				
 			}
 			
 			else if (($texto !="") && ($tipo == "null") && ($fechad =="") && ($fechah ==""))
 			{
-								echo "texto";
-				$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
-				OR c.ubicacion LIKE '%$texto%'";
+				echo "texto";
+				$sql ="SELECT * FROM couch c 
+				INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0 AND (c.cantpersonas >= $texto OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
+				OR c.ubicacion LIKE '%$texto%') ";
 
 			}
 			
@@ -75,14 +77,12 @@ function getCouches()
 			{
 						echo "tipo";
 				$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
-				INNER JOIN tipos t INNER JOIN solicitudes s
-                ON c.idtipo = t.idtipo AND s.idcouch = c.idcouch
-                WHERE t.idtipo = '$tipo'";
+				INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE t.idtipo = '$tipo' AND c.despublicado = 0";
 			}				
 			else 
 			{
 
-				$sql = "SELECT * FROM couch c INNER JOIN tipos t ON c.idtipo = t.idtipo";
+				$sql = "SELECT * FROM couch c INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0";
 					
 			}
 		}
@@ -90,13 +90,14 @@ function getCouches()
 		else 
 		{
 
-			$sql = "SELECT * FROM couch c INNER JOIN tipos t ON c.idtipo = t.idtipo";
+			$sql = "SELECT * FROM couch c INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0";
 				
 		}
 		
-		if ($resul = mysqli_query ($con, $sql)) 
-				{
-					return $resul;
-				}
+		$consulta = mysqli_query($con, $sql);
+		
+				return $consulta;
+		
+
 }
 ?>
