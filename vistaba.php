@@ -23,7 +23,7 @@ session_start();
 							</div>
 							<?php 
 								$conp= connection();
-								$sql= "select * from couch c INNER JOIN usuarios u WHERE c.idusuario=u.idusuario";
+								$sql= "select * from couch c INNER JOIN usuarios u ON c.idusuario=u.idusuario ORDER BY u.idusuario";
 								if ($result= $conp->query ($sql))
 									{
 										while ($couches= $result->fetch_assoc()){

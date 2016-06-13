@@ -14,7 +14,7 @@ function getCouches()
 		
 			if (($texto =="") && ($tipo != "null") && ($fechad !="") && ($fechah !="")) 
 			{
-			echo "todo menos texto";
+		//	echo "todo menos texto";
 			$sql =	"SELECT * FROM couch c 
 				INNER JOIN tipos t
                 ON c.idtipo = t.idtipo
@@ -27,7 +27,7 @@ function getCouches()
 			
 			else if (($texto !="") && ($tipo == "null") && ($fechad !="") && ($fechah !=""))
 			{
-						echo "todo menos tipo";
+				//	echo "todo menos tipo";
 			$sql ="SELECT * FROM couch c 
 				INNER JOIN tipos t 
                 ON c.idtipo = t.idtipo 
@@ -42,7 +42,7 @@ function getCouches()
 			
 			else if (($texto !="") && ($tipo != "null") && ($fechad =="") && ($fechah ==""))
 			{
-						echo "todo menos fecha";
+					//	echo "todo menos fecha";
 			$sql ="SELECT * FROM couch c 
 				INNER JOIN tipos t 
                 ON c.idtipo = t.idtipo
@@ -53,7 +53,7 @@ function getCouches()
 			
 			else if (($texto =="") && ($tipo == "null") && ($fechad !="") && ($fechah !=""))
 			{
-						echo "fecha";
+					//	echo "fecha";
 			$sql ="SELECT * FROM couch c 
 				INNER JOIN tipos t 
                 ON c.idtipo = t.idtipo
@@ -66,17 +66,17 @@ function getCouches()
 			
 			else if (($texto !="") && ($tipo == "null") && ($fechad =="") && ($fechah ==""))
 			{
-				echo "texto";
+			//echo "texto";
 				$sql ="SELECT * FROM couch c 
-				INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0 AND (c.cantpersonas >= $texto OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
+				INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0 AND (c.cantpersonas >= '$texto' OR c.titulo LIKE '%$texto%' OR c.descripcion LIKE '%$texto%' 
 				OR c.ubicacion LIKE '%$texto%') ";
 
 			}
 			
 			else if (($texto =="") && ($tipo != "null") && ($fechad =="") && ($fechah ==""))
 			{
-						echo "tipo";
-				$sql ="SELECT c.idcouch, c.titulo, c.descripcion, c.ubicacion, c.despublicado, c.idtipo, c.cantpersonas, t.nombre FROM couch c 
+					//	echo "tipo";
+				$sql ="SELECT * FROM couch c 
 				INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE t.idtipo = '$tipo' AND c.despublicado = 0";
 			}				
 			else 
@@ -93,10 +93,10 @@ function getCouches()
 			$sql = "SELECT * FROM couch c INNER JOIN tipos t ON c.idtipo = t.idtipo WHERE c.despublicado = 0";
 				
 		}
+	
 		
-		$consulta = mysqli_query($con, $sql);
-		
-				return $consulta;
+					return $sql;
+					
 		
 
 }

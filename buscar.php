@@ -14,6 +14,7 @@ if(!isset($_SESSION))
 	</head>
 	<body background="img/fondoo.png">
 		<div class="fondo">
+		<div class="contenido">
 			<?php	require ("menu.php");
 				if(!isset($_SESSION['estado'])) 
 				{ ?>
@@ -55,33 +56,47 @@ if(!isset($_SESSION))
 					<?php
 									include_once ("busqueda.php");
 									$couches = getCouches(); 
-									while ($couch = mysqli_fetch_assoc($couches))
+									
+									if ($resultado = mysqli_query ($conp,$couches))
+									{ 
+									while ($couch = mysqli_fetch_assoc($resultado))
 									{ 
 					?>
 						<div class="cou">
-								<div class="titulo">
+								<div class="tituloc">
 								<?php echo $couch['titulo'] ?><br>
 								</div>
-								<div class="descripciondet">
-									<?php echo $couch['descripcion'];?>
+								<div class="campoc">
+									<?php 
+									$letras = 60;
+									 if(strlen($couch['descripcion'])>=$letras){
+									echo substr($couch['descripcion'],0, $letras)."..."; 
+									}
+									else 
+									{ 
+									echo $couch['descripcion']; 
+									}
+									?>
 								</div>
-								<div class="descripciondet">
+								<div class="campoc">
 									Tipo de Couch: <?php echo $couch['nombre'];?>
 								</div>
-								<div class="descripciondet">
+								<div class="campoc">
 									Ubicacion: <?php echo $couch['ubicacion'];?>
 								</div>
-								<div class="descripciondet">
+								<div class="campoc">
 									Capacidad: <?php echo $couch['cantpersonas'];?>
 								</div>
-								<div class="det">
+								<div class="campoc">
 								<?php $detalle = $couch['idcouch']; ?>
 									<a style="text-decoration:none" href="detalles_couch.php?id=<?php echo $detalle;?>">Detalles...</a>
 								</div>
 						</div>
-								<?php } ?>
+								<?php } }
+								else { ?> <h1> No se encontraron coincidencias </h1> <?php }?>
 						
 				</div>	
+				</div>
 		    <!--<div class=pie>
 				<a>couchinn@hotmail.com &nbsp; &nbsp; CouchInn© Derechos Reservados 2015-2017</a>
 			</div> -->

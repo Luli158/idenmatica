@@ -1,8 +1,7 @@
 <?php
 	session_start();
-	if($_SESSION['estado']!='logueado'){
-		header('Location: ./ingresar.php?error=16');
-	}
+	if($_SESSION['estado']=='logueado'){
+		
 ?>
 <html>
 	<head>
@@ -13,11 +12,11 @@
 	<body>
 		<?php
 			include ('./menu.php');
-			include_once("./connection.php");
+			include_once("connection.php");
 			$conec=connection();
 			$id=$_GET['id'];
-			$consulta=mysqli_query($conec,"SELECT * FROM couch INNER JOIN tipos ON (couch.idtipo = tipos.idtipo) WHERE idcouch=$id");
-			$couch=mysqli_fetch_array($consulta);
+			$consulta=mysqli_query($conec,"SELECT * FROM couch INNER JOIN tipos ON couch.idtipo = tipos.idtipo WHERE couch.idcouch= '$id' ");
+			$couch = mysqli_fetch_array($consulta);
 		?>
 		<div id="cuerpo">
 			</br>
@@ -50,18 +49,27 @@
 				<div class="campo">
 					<H3>Foto: </H3>
 					<?php 
-
+					$con=connection();
+					$result=mysqli_query($con, "select premium from usuarios where idusuario = '$id'");
+					$f = $result -> fetch_row();
+					if($f != 0)
+					{	
 						if($couch['foto']==null)
 						{?>
 									<img src="img/Favicon.png">
 									<?php
+									}
+									else
+									{ ?>
+										<img src="mostrarImagen.php?id=<?php echo $id;?>"class="property_img"/>
+									<?php 
+									}
+								}
+					else
+						{?>
+							<img src="img/Favicon.png"/>
+						<?php
 						}
-						else
-						{ ?>
-						<img src="mostrarImagen.php?id=<?php echo $id;?>"class="property_img"/>
-						<?php 
-						}
-
 					?>
 				</div>
 				</div>
@@ -86,7 +94,7 @@
 					</p>
 				</div>
 				<div class="campo">
-						<input type="button" value="Volver" onClick="window.location.href='buscar.php' ">
+						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
 					</div>
 					<br>
 				</div>
@@ -97,3 +105,7 @@
 		?>
 	</body>
 </html>
+<?php }
+else { header("Location:index.php");
+}
+?>

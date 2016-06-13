@@ -277,6 +277,12 @@ body{
 		font-weight:bold;
 	}
 	
+.contenido 
+	{
+		margin-bottom: 20px;
+		width:auto;
+		height:auto;
+	}
 .form
 	{
 		text-align:center;
@@ -291,6 +297,7 @@ body{
 	width: 100%;
 	margin-left:35px;
 	margin-right: auto;
+	margin-bottom: 35px;
 	}
 	
 .cou
@@ -304,42 +311,29 @@ body{
 	margin-left:20px;
 	margin-right: 20px;
 	background-color:#FFFFFF;
-		border: 2px solid #96AC3C ;
+	border: 2px solid #96AC3C ;
+		margin-bottom: 35px;
 	
 	}
-	
-.tipo
-		{
-		margin-top: 10px;
-		margin-left:20px;
-		margin-right:20px;
-		word-spacing:3px;
-		line-height:30px;
-		text-align: left;
-		}	
 		
-.titulo
-		{		
-			margin-top: 8px;
-			margin-left:20px;
-			text-align: left;
-			word-spacing: left;
-			margin-right:5px;
-		}
-		
-.descripciondet
+.campoc
 		{	
-				margin-top: 8px;
+				margin-top: 10px;
 				margin-left:20px;
 				margin-right:5px;
 				text-align: left;
-				word-spacing: 5px;
+				height: 40px; 
 		}
-
-.det 
-	{
-	margin-top: 8px;
-	margin-left:20px;
+		
+.tituloc
+	{	
+			margin-top: 10px;
+			margin-left:20px;
+			margin-right:5px;
+			text-align: left;
+			height: 50px; 
+			font-size: 22px;
+			
 	}
 	
 .formulario
