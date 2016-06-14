@@ -93,12 +93,65 @@
 					?>
 					</p>
 				</div>
-				<div class="campo">
-						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
-					</div>
 					<br>
 				</div>
 			</div>
+			<div id="cajadetalles">
+				<div class='en_caja'>
+				<div class="campo">
+					<H1>Solicitudes: </H1>
+				</div>
+				</div>
+				
+				<?php $sql = "SELECT * FROM solicitudes s INNER JOIN usuarios u ON s.idusuario = u.idusuario WHERE s.idcouch= $id ";
+				if ($result= $con->query ($sql))
+					{
+						while ($solicitudes= $result->fetch_assoc()){ 
+						?> 
+						<script language="Javascript">
+								function aceptar(idsolicitud){
+									acepta=confirm("¿Esta seguro que desea aceptar esta solicitud? ");
+									if (acepta)
+										window.location.href = "aceptarsol.php?id=" + idsolicitud; 
+								}
+								
+								function rechazar(idsolicitud){
+									rechaza=confirm("¿Esta seguro que desea rechazar esta solicitud? ");
+									if (rechaza)
+										window.location.href = "rechazarsol.php?id=" + idsolicitud; 
+								}
+						</script>
+				<div class='en_caja'>
+				<div class="campo">
+				
+						<H3>Usuario que realizo la solicitud: </H3>
+					<p><?php echo $solicitudes['nombre']; echo ' '; echo $solicitudes['apellido']; echo '  - 	Email: '; echo $solicitudes ['email']; ?></p>
+					<H3>Fecha de solicitud: </H3>
+					<p><?php echo 'Desde: '; echo $solicitudes['fechadesde']; echo ' -  Hasta: '; echo $solicitudes['fechahasta']; ?></p>	
+					<H3>Estado de solicitud: </H3>
+					<p><?php 
+					if ($solicitudes['estado'] == 'espera')
+					{ ?>
+					En espera
+						<br><br>
+						<input type="submit" value="Aceptar" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)">
+						<input type="submit" value="Rechazar" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)">
+					<?php }
+					else if ($solicitudes['estado'] == 'aceptada') { ?>
+					Aceptada<br><br><input type="submit" value="Rechazar" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)">
+					<?php 
+					}
+					else { ?> Rechazada<br><br><input type="submit" value="Aceptar" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)">
+					<?php } ?></p>	
+					
+				</div>
+				</div>
+				<br>
+			<?php } }?>
+			</div>
+			<div class="campo">
+						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
+					</div>
 		</div>
 		<?php
 			mysqli_close($conec);
