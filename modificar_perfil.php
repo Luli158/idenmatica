@@ -38,7 +38,7 @@
 						</br>
 						DNI:</br>
 						<input type="number" id="dni" name="DNI" value="<?php echo $usuario['documento']; ?>"></br>
-						Fecha de nacimiento:</br> (A&ntildeo-Mes-Dia)</br>
+						Fecha de nacimiento:</br> (aaaa-mm-dd)</br>
 						<input type="date" id="fechanac" name="fechanac" value="<?php echo $fecha ?>"></br>
 						Direcci&oacuten:</br>
 						<input type="text" id="direccion" name="direccion" value="<?php echo $usuario['direccion']; ?>"></br>

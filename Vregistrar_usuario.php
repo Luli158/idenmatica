@@ -3,6 +3,7 @@
 	$_SESSION['pass'] = $_POST['pass'];
 	$_SESSION['nombre'] = $_POST['nombre'];
 	$_SESSION['apellido'] = $_POST['apellido'];
+	$_SESSION['nacimiento'] = $_POST['nacimiento'];
 	$_SESSION['DNI'] = $_POST['DNI'];
 	$_SESSION['direccion'] = $_POST['direccion'];
 

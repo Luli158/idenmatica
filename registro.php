@@ -43,6 +43,11 @@
 						</div>
 						</br>
 						<div class="campo">
+						<div class="campo">
+						Fecha de nacimiento:</br> (aaaa-mm-dd)</br>
+						<input type="text" id="nacimiento" name="nacimiento" placeholder="Fecha de nacimiento" value="<?php if (isset($_SESSION['nacimiento'])) echo $_SESSION['nacimiento']; ?>"></br>
+						</div>
+						</br>
 						DNI:</br>
 						<input type="text" id="dni" name="DNI" placeholder="DNI" value="<?php if (isset($_SESSION['DNI'])) echo $_SESSION['DNI']; ?>"></br>
 						</div>
