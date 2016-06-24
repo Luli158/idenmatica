@@ -62,7 +62,7 @@
 							</select>
 						</div>
 						<input type="submit" value="Modificar" onclick="return validarCouch()">
-						<input type="button" value="Cancelar" onClick="window.location.href='index.php' ">
+						<input type="button" value="Cancelar" onClick="window.location.href='vistaba.php' ">
 					</form>
 				</div>
 			</section>

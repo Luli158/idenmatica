@@ -4,7 +4,8 @@ function validarFechaMayorActual(date){
 	var mes = hoy.getMonth()+1;
 	var anio= hoy.getFullYear();
 	var fecha = String(anio+"-"+mes+"-"+dia);
- 	if (date > fecha_actual){
+	alert(date);
+ 	if (date > fecha){
     	return true;
  	}
     else{
@@ -25,20 +26,32 @@ function validarFechas(){
 	return true;
 }
 
+function validarFecha() {
+    var fechaDesde = document.getElementById("llegada").value;
+    var fechaHasta = document.getElementById("salida").value;
+	var fechaActual= new Date();
+	var mes= fechaActual.getMonth()+1;
+    if(mes<10){mes="0"+mes;};
+    var dia= fechaActual.getDate();
+    if(dia<10){dia="0"+dia;};
+    var hoy=fechaActual.getFullYear()+"-"+mes+"-"+dia;
+	
+    
+		if((fechaDesde == "")&(fechaHasta == "")) { alert("Ingrese fecha de llegada y de salida por favor."); return false; }
+		else if((fechaDesde != "")&(fechaHasta == "")) {alert("La fecha de salida no esta seleccionada!!"); return false;}
+		else if((fechaDesde == "")&(fechaHasta != "")) {alert("La fecha de llegada no esta seleccionada!!"); return false;}
+        else if(fechaDesde<hoy){alert("La fecha de llegada es menor a la fecha actual!!"); return false;}
+		else if(fechaHasta<fechaDesde){alert("La fecha de salida es menor a la fecha de llegada!!"); return false;}
+		else{return true;}
+		}
+
 function validarSolicitud(e){ 
 	solicitud=confirm("¿Está seguro que desea solicitar este Couch?");
 	if (solicitud){
 	// si pulsamos en aceptar
-		solicitud2=confirm("No.. Pero está completamente seguro que desea solicitarlo!!??");
-		if (solicitud2){
-			solicitud3=confirm("Mmm.. no se vaya a arrepentir..");
-			if (solicitud3){
-				alert("Ok.. como desee.");
-				//if (validarFechas()){
-    				document.solicitar.submit();
-    			//}
-			}
-		}
+		if (validarFecha()){
+    		document.solicitar.submit();
+    	}
 	}
 	else{ 
 	// si pulsamos en cancelar

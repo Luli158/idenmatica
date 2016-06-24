@@ -19,7 +19,7 @@
 			$id=$_GET['id'];
 			$consulta=mysqli_query($conec,"SELECT * FROM couch INNER JOIN tipos ON (couch.idtipo = tipos.idtipo) WHERE idcouch=$id");
 			$couch=mysqli_fetch_array($consulta);
-			$consulta="SELECT * FROM solicitudes INNER JOIN usuarios ON (solicitudes.idusuario = usuarios.idusuario) WHERE idsolicitud=$id";
+			$consulta="SELECT * FROM solicitudes INNER JOIN usuarios ON (solicitudes.idusuario = usuarios.idusuario) WHERE idsolicitud=$id"; /* junta la tabla solicitudes y usuarios, pero el campo que tienen en común llamado idusuario no se repite.. la condicion del ON es el punto en que se unen ambas tablas */
 			$resul=mysqli_query($conec,$consulta);
 			$solicitud=mysqli_fetch_array($resul);
 		?>
@@ -130,9 +130,9 @@
 							<b>Solicitar Couch:</b>
 								<form method="POST" name="solicitar" action="./Venviar_solicitud.php">
 									<p>Llegada:</p>
-									<input type=date name=llegada>
+									<input type=date id="llegada" name="llegada">
 									<p>Salida:</p>
-									<input type=date name=salida>
+									<input type=date id="salida" name="salida">
 									<p>Comentario:</p>
 									<textarea id="comentariosol" name="comentariosol" rows="6" cols="50" maxlength="1000" placeholder="Opcional"></textarea>
 									<input type="hidden" name="idcouch" value="<?php echo $id; ?>">
@@ -145,7 +145,7 @@
 				}
 ?>
 				<div class="campo">
-					<input type="button" value="Volver" onClick="window.location.href='index.php'">
+					<input type="button" value="Volver" onClick="window.location.href='buscar.php'">
 				</div>
 				</br>
 				</div>

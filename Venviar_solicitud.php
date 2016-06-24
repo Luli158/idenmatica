@@ -7,7 +7,7 @@
 	$comentario=$_POST["comentariosol"];
 	$fechadesde=$_POST["llegada"];
 	$fechahasta=$_POST["salida"];
-	$estado="En espera";
+	$estado="espera";
 	$sql= "INSERT INTO solicitudes (idcouch, idusuario, estado, comentariosolicitud, fechadesde, fechahasta) VALUES ('$idcouch', '$idusuario', '$estado', '$comentario', '$fechadesde', '$fechahasta')";
 		mysqli_query($conec,$sql) or die('Error: ' . mysqli_error($conec));
 ?>
