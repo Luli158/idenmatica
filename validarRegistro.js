@@ -30,8 +30,6 @@ function esMayor(date){
 	var hmes = hoy.getMonth()+1;
 	var hanio= hoy.getFullYear();
 	//edad = parseInt((fechahoy-fechanac)/365/24/60/60/1000);
-	alert(hdia);
-	alert(ndia);
 	if ((hanio-nanio) < 18) {		
 		return false;
 	}
@@ -68,6 +66,11 @@ function validarRegistro(){
 	if (document.registro.apellido.value == null || document.registro.apellido.value.length == 0 || /^\s+$/.test(document.registro.apellido.value)) {
 		alert("El campo apellido esta vacio.");
         document.registro.apellido.focus();
+        return (false);
+	}
+	if (document.registro.nacimiento.value == null || document.registro.nacimiento.value.length == 0 || /^\s+$/.test(document.registro.nacimiento.value)) {
+		alert("El campo fecha de nacimiento esta vacio.");
+        document.registro.nacimiento.focus();
         return (false);
 	}
 	if (!esMayor(document.registro.nacimiento.value)) {
