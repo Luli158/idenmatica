@@ -18,43 +18,43 @@
 					</div>
 					<form method="POST" name="registro" action="Vregistrar_usuario.php">
 						<div class="campo">
-						Correo electronico:</br>
-						<input type="email" id="email" name="user" placeholder="Correo"></br>
+							Correo electronico:</br>
+							<input type="email" id="email" name="user" placeholder="Correo"></br>
 						</div>
 						</br>
 						<div class="campo">
-						Clave:</br>
-						<input type="password" id="pass" name="pass" placeholder="Clave" value="<?php if (isset($_SESSION['pass'])) echo $_SESSION['pass']; ?>"></br>
+							Clave:</br>
+							<input type="password" id="pass" name="pass" placeholder="Clave" value="<?php if (isset($_SESSION['pass'])) echo $_SESSION['pass']; ?>"></br>
 						</div>
 						</br>
 						<div class="campo">
-						Repita la Clave:</br>
-						<input type="password" id="pass2" name="pass2" placeholder="Clave" value="<?php if (isset($_SESSION['pass'])) echo $_SESSION['pass']; ?>"></br>
+							Repita la Clave:</br>
+							<input type="password" id="pass2" name="pass2" placeholder="Clave" value="<?php if (isset($_SESSION['pass'])) echo $_SESSION['pass']; ?>"></br>
 						</div>
 						</br>
 						<div class="campo">
-						Nombre:</br>
-						<input type="text" id="nombre" name="nombre" placeholder="Nombre" value="<?php if (isset($_SESSION['nombre'])) echo $_SESSION['nombre']; ?>"></br>
+							Nombre:</br>
+							<input type="text" id="nombre" name="nombre" placeholder="Nombre" value="<?php if (isset($_SESSION['nombre'])) echo $_SESSION['nombre']; ?>"></br>
 						</div>
 						</br>
 						<div class="campo">
-						Apellido:</br>
-						<input type="text" id="apellido" name="apellido" placeholder="Apellido" value="<?php if (isset($_SESSION['apellido'])) echo $_SESSION['apellido']; ?>"></br>
+							Apellido:</br>
+							<input type="text" id="apellido" name="apellido" placeholder="Apellido" value="<?php if (isset($_SESSION['apellido'])) echo $_SESSION['apellido']; ?>"></br>
 						</div>
 						</br>
 						<div class="campo">
-						<div class="campo">
-						Fecha de nacimiento:</br> (aaaa-mm-dd)</br>
-						<input type="text" id="nacimiento" name="nacimiento" placeholder="Fecha de nacimiento" value="<?php if (isset($_SESSION['nacimiento'])) echo $_SESSION['nacimiento']; ?>"></br>
-						</div>
-						</br>
-						DNI:</br>
-						<input type="text" id="dni" name="DNI" placeholder="DNI" value="<?php if (isset($_SESSION['DNI'])) echo $_SESSION['DNI']; ?>"></br>
+							Fecha de nacimiento:</br> (aaaa-mm-dd)</br>
+							<input type="date" id="nacimiento" name="nacimiento" placeholder="Fecha de nacimiento" value="<?php if (isset($_SESSION['nacimiento'])) echo $_SESSION['nacimiento']; ?>"></br>
 						</div>
 						</br>
 						<div class="campo">
-						Direcci&oacuten:</br>
-						<input type="text" id="direccion" name="direccion" placeholder="Dirección" value="<?php if (isset($_SESSION['direccion'])) echo $_SESSION['direccion']; ?>"></br>
+							DNI:</br>
+							<input type="text" id="dni" name="DNI" placeholder="DNI" value="<?php if (isset($_SESSION['DNI'])) echo $_SESSION['DNI']; ?>"></br>
+						</div>
+						</br>
+						<div class="campo">
+							Direcci&oacuten:</br>
+							<input type="text" id="direccion" name="direccion" placeholder="Dirección" value="<?php if (isset($_SESSION['direccion'])) echo $_SESSION['direccion']; ?>"></br>
 						</div>
 						<input type="hidden" id="premium" name="premium" value="0"></br>
 						<input type="hidden" id="admin" name="admin" value="0"></br>

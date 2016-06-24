@@ -34,6 +34,8 @@
 						<textarea id="descripcion" name="descripcion">"<?php echo $couch['descripcion']; ?>"</textarea></br>
 						Ubicaci&oacuten:</br>
 						<input type="text" id="ubicacion" name="ubicacion" value="<?php echo $couch['ubicacion']; ?>"></br>
+						Cantidad de habitantes:</br>
+						<input type="number" id="habitantes" name="habitantes"></br>
 						Capacidad:</br>
 						<input type="number" id="capacidad" name="capacidad" value="<?php echo $couch['cantpersonas']; ?>"></br>
 						Tipo:</br>

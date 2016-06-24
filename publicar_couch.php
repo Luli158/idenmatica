@@ -24,6 +24,8 @@
 						<textarea id="descripcion" name="descripcion" placeholder="Descripcion"></textarea></br>
 						Ubicaci&oacuten:</br>
 						<input type="text" id="ubicacion" name="ubicacion" placeholder="Ubicacion"></br>
+						Cantidad de habitantes:</br>
+						<input type="number" id="habitantes" name="habitantes"></br>
 						Capacidad:</br>
 						<input type="number" id="capacidad" name="capacidad"></br>
 						Tipo:</br>

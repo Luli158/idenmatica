@@ -1,9 +1,3 @@
-<?php
-	session_start();
-	if($_SESSION['estado']!='logueado'){
-		header('Location: ./ingresar.php?error=16');
-	}
-?>
 <html>
 	<head>
 		<script src="./validarSolicitud.js"></script>

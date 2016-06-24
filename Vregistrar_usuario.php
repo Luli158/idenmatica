@@ -13,13 +13,14 @@
 	$contrasenia=$_POST["pass"];
 	$nombre=$_POST["nombre"];
 	$apellido=$_POST["apellido"];
+	$fechanac=$_POST["nacimiento"];
 	$DNI=$_POST["DNI"];
 	$direccion=$_POST["direccion"];
 	$premium=$_POST["premium"];
 	$admin=$_POST["admin"];
 	$resul=mysqli_query($conec, "SELECT * FROM usuarios WHERE email='$correo'");
 	if(mysqli_num_rows($resul)==0){
-		$sql= "INSERT INTO usuarios (email, clave, documento, direccion, apellido, nombre, premium, administrador) VALUES ('$correo', '$contrasenia', '$DNI', '$direccion', '$apellido', '$nombre', '$premium', '$admin')";
+		$sql= "INSERT INTO usuarios (email, clave, documento, direccion, apellido, nombre, fechanac, premium, administrador) VALUES ('$correo', '$contrasenia', '$DNI', '$direccion', '$apellido', '$nombre', '$fechanac', '$premium', '$admin')";
 		mysqli_query($conec,$sql) or die('Error: ' . mysqli_error($conec));
 		session_destroy();
 ?>

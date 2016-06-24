@@ -8,6 +8,7 @@
 	$titulo=$_POST["titulo"];
 	$descripcion=$_POST["descripcion"];
 	$ubicacion=$_POST["ubicacion"];
+	$canthabitantes=$_POST["habitantes"];
 	$cantpersonas=$_POST["capacidad"];
 	$despublicado='0';
 	$tipo=$_POST["tipo"];
@@ -21,7 +22,7 @@
 			}
 		}
 		if($deshabilitado=='0'){
-			$sql= "INSERT INTO couch (fecha, titulo, descripcion, ubicacion, cantpersonas, despublicado, idusuario, idtipo) VALUES ('$fecha', '$titulo', '$descripcion', '$ubicacion', '$cantpersonas','$despublicado', '$idusuario', '$tipo')";
+			$sql= "INSERT INTO couch (fecha, titulo, descripcion, ubicacion, canthabitantes, cantpersonas, despublicado, idusuario, idtipo) VALUES ('$fecha', '$titulo', '$descripcion', '$ubicacion', '$canthabitantes', '$cantpersonas','$despublicado', '$idusuario', '$tipo')";
 			mysqli_query($conec,$sql) or die('Error: ' . mysqli_error($conec));
 		}
 		else{
@@ -32,7 +33,7 @@
 		}
 	}
 	else{
-		$sql= "INSERT INTO couch (fecha, titulo, descripcion, ubicacion, cantpersonas, despublicado, idusuario, idtipo) VALUES ('$fecha', '$titulo', '$descripcion', '$ubicacion', '$cantpersonas','$despublicado', '$idusuario', '$tipo')";
+		$sql= "INSERT INTO couch (fecha, titulo, descripcion, ubicacion, canthabitantes, cantpersonas, despublicado, idusuario, idtipo) VALUES ('$fecha', '$titulo', '$descripcion', '$ubicacion', '$canthabitantes', '$cantpersonas','$despublicado', '$idusuario', '$tipo')";
 		mysqli_query($conec,$sql) or die('Error: ' . mysqli_error($conec));
 	}
 

@@ -10,6 +10,11 @@ function validarCouch(){
         document.couch.ubicacion.focus();
         return (false);
 	}
+	if (document.couch.habitantes.value == null || document.couch.habitantes.value.length == 0 || /^\s+$/.test(document.couch.habitantes.value) || document.couch.habitantes.value < 1) {
+		alert("El campo cantidad de habitantes esta vacio o su valor es menor a 1.");
+        document.couch.habitantes.focus();
+        return (false);
+	}
 	if (document.couch.capacidad.value == null || document.couch.capacidad.value.length == 0 || /^\s+$/.test(document.couch.capacidad.value) || document.couch.capacidad.value < 1) {
 		alert("El campo capacidad esta vacio o su valor es menor a 1.");
         document.couch.capacidad.focus();

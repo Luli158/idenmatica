@@ -20,6 +20,30 @@ function tiene_letras(texto){
    return 0;
 }
 
+function esMayor(date){
+	var nacimiento=new Date(date);
+	var ndia = nacimiento.getDate()+1;//NO SE POR QUÉ ME TIRA UN NUMERO MENOS DEL QUE ELEGIS EN EL INPUT DATE
+	var nmes = nacimiento.getMonth()+1;
+	var nanio= nacimiento.getFullYear();
+	hoy = new Date();
+	var hdia = hoy.getDate();//ACÁ TOMA BIEN EL NUMERO, ASI QUE NO SE QUÉ ONDA
+	var hmes = hoy.getMonth()+1;
+	var hanio= hoy.getFullYear();
+	//edad = parseInt((fechahoy-fechanac)/365/24/60/60/1000);
+	alert(hdia);
+	alert(ndia);
+	if ((hanio-nanio) < 18) {		
+		return false;
+	}
+	if((hmes-nmes) < 0){
+		return false;
+	}
+	if((hdia-ndia) < 0){
+		return false;
+	}
+	return true;
+}
+
 function validarRegistro(){
 	if ((!validarCorreo(document.registro.user.value)) || (document.registro.user.value == null || document.registro.user.value.length == 0 || /^\s+$/.test(document.registro.user.value))) {
 		alert('La direccion de correo no es valida');
@@ -44,6 +68,11 @@ function validarRegistro(){
 	if (document.registro.apellido.value == null || document.registro.apellido.value.length == 0 || /^\s+$/.test(document.registro.apellido.value)) {
 		alert("El campo apellido esta vacio.");
         document.registro.apellido.focus();
+        return (false);
+	}
+	if (!esMayor(document.registro.nacimiento.value)) {
+		alert("Para registrarse en CouchInn debes ser mayor de edad. Gracias.");
+        document.registro.nacimiento.focus();
         return (false);
 	}
 	if (document.registro.DNI.value.length < 6 || document.registro.DNI.value.length > 8) {
