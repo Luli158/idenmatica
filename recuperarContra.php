@@ -7,7 +7,8 @@
 		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 		<title>CouchInn</title>
 	</head>
-	<body background="img/fondoo.png">
+	<body>
+	<?php include("menuu.php") ?>
 		<div class='ingresar' id='ingresar'>
 			<h1 style='color:6d6d6d'>Recuperar contrase&ntilde;a</h1>
 			<form method='post' name='ingresar' action='#'>
@@ -47,7 +48,7 @@
 
 							//Nuestra cuenta
 							$mail->Username ="couchinn1@gmail.com";
-							$mail->Password = "couchinn123";
+							$mail->Password = "1234couch";
 
 							//Agregar destinatario
 							$mail->AddAddress($usuario);

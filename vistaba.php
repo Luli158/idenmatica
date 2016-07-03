@@ -11,10 +11,10 @@ session_start();
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
 		<title>CouchInn</title>
 	</head>
-	<body background="img/fondoo.png">
-		<div class='fondo'>
+	<body>
+		<div>
 			<?php
-				require ("menu.php"); ?>
+				require ("menuu.php"); ?>
 				<div class='menuba'>
 					<div class='tabla'>
 						<div class='columnaba'>

@@ -6,7 +6,7 @@
 	$result = $con->query ($sql);
 	$sol = $result->fetch_assoc();
 	$idc = $sol['idcouch'];
-	$sql ="UPDATE solicitudes SET estado='rechazada' WHERE idsolicitud= $ids";
+	$sql ="UPDATE solicitudes SET estado='rechazada', fechaaceptada = NULL WHERE idsolicitud= $ids";
 
 	if ($con->query ($sql))
 	{ ?>
