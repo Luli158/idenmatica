@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	include_once ("connection.php");
 	$con=connection();
 	$ids = $_GET['id'];
@@ -22,12 +23,23 @@
 		
 		else 
 		{
-		$sql ="UPDATE solicitudes SET estado='aceptada' WHERE idsolicitud= $ids";
+		date_default_timezone_set('America/Argentina/Buenos_Aires');
+		$hoy = date("Y-m-d");
+		require_once ('enviarMail.php');
+		
+		
+		
+		$cons ="SELECT email FROM couch WHERE idcouch =$idc"  // ENVIAR MAIL A ESE Y ...
+		$e = $con->query($sql);
+		$usu = $_SESSION ['email']; // Y A ESTE
+		enviar($e, $usu);
+		
+		$sql ="UPDATE solicitudes SET estado='aceptada', fechaaceptada = '$hoy' WHERE idsolicitud= $ids";
 		$con->query($sql);
 		$sql ="UPDATE solicitudes SET estado='rechazada' WHERE idcouch= $idc AND estado = 'espera' 
 				AND (fechadesde BETWEEN '$fechad' AND '$fechah' OR fechahasta BETWEEN '$fechad' AND '$fechah'
 				OR '$fechad' BETWEEN fechadesde AND fechahasta OR '$fechah' BETWEEN fechadesde AND fechahasta)";
-				$s = $con->query($sql);	 ?>
+				$con->query($sql);	 ?>
 				<script type="text/javascript"> alert ("La solicitud fue aceptada y se han rechazado las solicitudes que coinciden con su fecha"); 
 	 window.location.href='miCouch.php?id=<?php echo $sol['idcouch']?>'; </script>
 		 

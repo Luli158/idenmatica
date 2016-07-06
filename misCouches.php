@@ -11,79 +11,110 @@
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
 		<title>CouchInn</title>
 	</head>
-	<body background="img/fondoo.png">
+	<body>
 		<div class='fondo'>
 			<?php
-				require ("menu.php"); ?>
-				<div class='menuba'>
-					<div class='tabla'>
-						<div class='columnaba'>
-							<div class='tituloba'>
-								<a> MIS COUCHES </a>
-							</div>
-							<?php 
-								$conp= connection();
-								$id= $_SESSION['usuario'];
-								$sql= "select * from couch c INNER JOIN usuarios u ON c.idusuario = u.idusuario WHERE c.idusuario = $id ";
-								if ($result= $conp->query ($sql))
-									{
-										while ($couches= $result->fetch_assoc()){
-							?> 
-							<script language="Javascript">
-								function preguntar(idcouch){
-									eliminar=confirm("¿Esta seguro que desea eliminar este Couch? ");
-									if (eliminar)
-										window.location.href = "eliminarMiC.php?id=" + idcouch; 
-								}
+				require ("menuu.php"); ?>
+					<div class='tituloba'>
+						<a> MIS COUCHES </a>
+					</div>
+					<script language="Javascript">
+						function preguntar(idcouch){
+							eliminar=confirm("¿Esta seguro que desea eliminar este Couch? ");
+							if (eliminar)
+								window.location.href = "eliminarMiC.php?id=" + idcouch; 
+							}
 								
-								function preguntars(idcouch){
-									eliminar=confirm("¿El Couch tiene solicitudes sin responder, esta seguro que desea eliminarlo? ");
-									if (eliminar)
-										window.location.href = "eliminarMiC.php?id=" + idcouch; 
-								}
-							</script>
-								<div class='textoba'>
-								<a href='miCouch.php?id=<?php echo $couches['idcouch']; ?>'><?php echo $couches['titulo'];?></a>
-								<?php 
-								$idc= $couches['idcouch'];;
-								$s = $conp->query("SELECT * FROM solicitudes s WHERE s.idcouch = $idc AND s.estado = 'espera'");
-									if (mysqli_num_rows($s) > 0){ ?>
-								<a href="javascript:preguntars(<?php echo $couches["idcouch"]?>)"><img src="img/eliminar.png" width=15px height=15px></a>
-								<?php }
-								else { ?>
-								<a href="javascript:preguntar(<?php echo $couches["idcouch"]?>)"><img src="img/eliminar.png" width=15px height=15px></a>
-								<?php } ?>
-								<form method="GET" name="bloquear" action="Vbloquear_tipo.php">
-						<?php
-    						if($couches['despublicado'] ==0){
-    					?>
-    							<div class="campo">
-    								<input type="hidden" name="id" value="<?php echo $couches["idcouch"]; ?>">
+						function preguntars(idcouch){
+							eliminar=confirm("¿El Couch tiene solicitudes sin responder, esta seguro que desea eliminarlo? ");
+							if (eliminar)
+								window.location.href = "eliminarMiC.php?id=" + idcouch; 
+						}
+					</script>
+					<div class="couches">
+						<?php 
+							$conp= connection();
+							$id= $_SESSION['usuario'];
+							$sql= "select * from couch c INNER JOIN usuarios u ON c.idusuario = u.idusuario WHERE c.idusuario = $id ";
+							if ($result= $conp->query ($sql))
+								{
+								while ($couch= $result->fetch_assoc()){
+					?> 
+						<div class="cou" style="height:400px;">
+							<div class="campoci">
+							<?php 
+									$detalle = $couch['idcouch']; 
+									$consultaimagenes="SELECT * FROM imagenescouches WHERE idcouch='$detalle' ORDER BY idcouch";
+									$resulimagenes=mysqli_query($conp,$consultaimagenes);
+									if (mysqli_num_rows($resulimagenes) == 0) 
+									{?>
+										<a href="miCouch.php?id=<?php echo $detalle;?>">
+													<div class="imglogo">
+														<img src="img/logo.png" style="position:center; width:100%; margin-top:30%;" >
+													</div>
+													</a>
+									<?php
+									}
+									else
+										{ 
+										
+										$imagen=mysqli_fetch_array($resulimagenes);
+													$ruta= "./" . $imagen['rutaimagen'];
+													?>
+										<div>
+											<a href="miCouch.php?id=<?php echo $detalle;?>"><img style="background-image: url(<?php echo $ruta ?>); background-position:center; background-repeat: no-repeat; background-size: cover; width:100%; height:305px;" ></a>
+										
+										</div>			
+									<?php } ?> 
+							</div>
+							<div>
+								<div class="parrafo" style="height:60px;"><a class="tituloc"><?php echo $couch['titulo']; ?></a>
+									<a class="campoc" style="line-height: 140%;"><?php echo ' - Ubicaci&oacute;n: ' . $couch['ubicacion'] . '.'?> </a> 
+									<a class="campoc" style="line-height: 140%;"> <?php echo 'Con capacidad para ' . $couch['cantpersonas'] . ' personas.'?></a></div>
+							</div>	
+					<div class="ceditar"  style="margin-bottom:0px;">
+					<div>
+					<a href="modificar_couch.php?id=<?php echo $detalle; ?>"><img src="img/modificar.png" width=15px height=15px></a>
+					</div>
+						<?php 
+							$idc= $couch['idcouch'];;
+							$s = $conp->query("SELECT * FROM solicitudes s WHERE s.idcouch = $idc AND s.estado = 'espera'");
+							if (mysqli_num_rows($s) > 0){ ?>
+							<div><a href="javascript:preguntars(<?php echo $couch["idcouch"]?>)"><img src="img/eliminar.png" width=15px height=15px></a></div>
+							<?php }
+							else { ?>
+								<div><a href="javascript:preguntar(<?php echo $couch["idcouch"]?>)"><img src="img/eliminar.png" width=15px height=15px></a></div>
+							<?php } ?>
+							<div>
+							<form method="GET" name="bloquear" action="Vbloquear_tipo.php">
+							<?php
+    						if($couch['despublicado'] ==0){
+							?>
+    						
+    								<input type="hidden" name="id" value="<?php echo $couch["idcouch"]; ?>">
     								<input type="hidden" name="bloqueado" value="1">
-									<input type="submit" value="Despublicar">
-    							</div>
+									<input type="submit" value="Despublicar"> 
+					
     					<?php
-    						}
-    						else{
+    						} 
+    					else {
     					?>
-    							<div class="campo">				
-    								<input type="hidden" name="id" value="<?php echo $couches["idcouch"]; ?>">
+    										
+    								<input type="hidden" name="id" value="<?php echo $couch["idcouch"]; ?>">
     								<input type="hidden" name="bloqueado" value="0">
 									<input type="submit" value="Publicar">
-    							</div>
+						
     					<?php
     						}
-    					?>
-    			</form>
-								</div>
-							<?php
-								}} 
-							?>
-							
-						</div>
-						</div>
+    					?> 
+							</form></div>
 					</div>
 				</div>
+					<?php } } 
+								?>						
+				</div>
+			</div>
+						
 	</body>
 </html>
 <?php }

@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<?php
-			include ('./menu.php');
+			include ('./menuu.php');
 			include_once("connection.php");
 			$conec=connection();
 			$id=$_GET['id'];
@@ -20,140 +20,135 @@
 		?>
 		<div id="cuerpo">
 			</br>
-			<div id="cajadetalles">
+			<div id="cajadetalles"><br>
 				<div class='en_caja'>
 				<div class="campo">
-					<H3>Fecha de publicaci&oacuten: </H3>
-					<p><?php echo $couch['fecha']?></p>
+					<H1><?php echo $couch['titulo']?></H1>
 				</div>
-				</div>
+				</div> <br><br>
 				<div class='en_caja'>
 				<div class="campo">
-					<H3>T&iacutetulo: </H3>
-					<p><?php echo $couch['titulo']?></p>
-				</div>
-				</div>
-				<div class='en_caja'>
-				<div class="campo">
-					<H3>Descipci&oacuten: </H3>
-					<p><?php echo $couch['descripcion']?></p>
-				</div>
-				</div>
-				<div class='en_caja'>
-				<div class="campo">
-					<H3>Capacidad: </H3>
-					<p><?php echo $couch['cantpersonas']?></p>
-				</div>
-				</div>
-				<div class='en_caja'>
-				<div class="campo">
-					<H3>Foto: </H3>
 					<?php 
-					$con=connection();
-					$result=mysqli_query($con, "select premium from usuarios where idusuario = '$id'");
-					$f = $result -> fetch_row();
-					if($f != 0)
-					{	
-						if($couch['foto']==null)
-						{?>
-									<img src="img/Favicon.png">
-									<?php
-									}
-									else
-									{ ?>
-										<img src="mostrarImagen.php?id=<?php echo $id;?>"class="property_img"/>
-									<?php 
-									}
-								}
-					else
-						{?>
-							<img src="img/Favicon.png"/>
-						<?php
-						}
+						$consultaimagenes="SELECT * FROM imagenescouches WHERE idcouch=$id";
+						$consulta="SELECT rutaimagen FROM imagenescouches WHERE idcouch=$id";
+						$resulimagenes=mysqli_query($conec,$consultaimagenes);
+						$resultado=mysqli_query($conec,$consulta);
+						$hayimagen=mysqli_fetch_array($resultado);
+						if($hayimagen!=null){
+							while($imagen=mysqli_fetch_array($resulimagenes)) {
 					?>
-				</div>
-				</div>
-				<div class='en_caja'>
-				<div class="campo">
-					<H3>Tipo de Couch: </H3>
-					<p><?php echo $couch['nombre']?></p>
-				</div>
-				</div>
-				<div class='en_caja'>
-				<div class="campo">
-					<H3>Usuario que public&oacute: </H3>
-					<p>
+								<div style="display: inline-block;"><img src="./<?php echo $imagen['rutaimagen'] ?>" class="fotomic"></div>
 					<?php
-						$consulta=mysqli_query($conec,"SELECT nombre, apellido FROM usuarios WHERE idusuario=$couch[idusuario]");
-						$dueño=mysqli_fetch_array($consulta);
-						echo $dueño['nombre'];
-					?> &nbsp
-					<?php 
-						echo $dueño['apellido'];
+							}
+						}
+						else{ 
 					?>
-					</p>
+							<div><img src="img/logo.png" class="fotomic"></div>
+					<?php
+						} ?>
 				</div>
-					<br>
 				</div>
-			</div>
-			<div id="cajadetalles">
 				<div class='en_caja'>
 				<div class="campo">
-					<H1>Solicitudes: </H1>
+					<p style="line-height: 140%;"><a><?php echo $couch['fecha']?></a><br>
+					<a><?php echo $couch['descripcion'] . ' - ' . $couch['nombre'] . ' - Capacidad para ' . $couch['cantpersonas'] . ' personas.' ?></a><p>
+					
 				</div>
 				</div>
 				
-				<?php $sql = "SELECT * FROM solicitudes s INNER JOIN usuarios u ON s.idusuario = u.idusuario WHERE s.idcouch= $id ";
-				if ($result= $con->query ($sql))
-					{
-						while ($solicitudes= $result->fetch_assoc()){ 
-						?> 
-						<script language="Javascript">
+				<div class="campo">
+						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
+					</div><br>
+			</div>
+			<?php $sql = "SELECT * FROM solicitudes s INNER JOIN usuarios u ON s.idusuario = u.idusuario WHERE s.idcouch= $id ORDER BY s.fechadesde ";
+					$resul=mysqli_query($conec,$sql); 
+				 if (mysqli_num_rows($resul) == 0) { ?>
+				<div id="cajadetalles">
+					<div id="solicitud">
+					<H1>NO TIENES SOLICITUDES PARA ESTE COUCH<H1>
+					</div>
+				</div>
+					<?php } else { ?>	
+			<div id="cajadetalles">
+					<div id="solicitud">
+					<H1>SOLICITUDES </H1> 
+					</div>
+				<script language="Javascript">
 								function aceptar(idsolicitud){
-									acepta=confirm("¿Esta seguro que desea aceptar esta solicitud? ");
+									acepta=confirm("¿Esta seguro que desea aceptar esta solicitud? Se enviara un mail al usuario ");
 									if (acepta)
 										window.location.href = "aceptarsol.php?id=" + idsolicitud; 
 								}
 								
 								function rechazar(idsolicitud){
-									rechaza=confirm("¿Esta seguro que desea rechazar esta solicitud? ");
+									rechaza=confirm("¿Esta seguro que desea rechazar esta solicitud? Se enviara un mail al usuario ");
 									if (rechaza)
 										window.location.href = "rechazarsol.php?id=" + idsolicitud; 
 								}
 						</script>
-				<div class='en_caja'>
-				<div class="campo">
+
+				<div class="tablac">
+					<div class="titulos">
+					<div class="tit" style="	width:13%;"><H4>SOLICITA</H4></div>
+					<div class="tit" style="	width:22%;"><H4>EMAIL</H4></div>
+					<div class="tit" style="	width:10%;"><H4>DESDE</H4></div>
+					<div class="tit" style="	width:10%;"><H4>HASTA</H4></div>
+					<div class="tit" style="	width:22%;"><H4>COMENTARIO<H4></div>
+					<div class="tit" style="	width:8%;"><H4>ESTADO</H4></div>
+					<div class="tit" style="	width:7%;"><H4>ACCI&Oacute;N</H4></div>
+					</div>
+					<div class="fila">
+
+				<?php
+					if ($result= $conec->query ($sql))
+						{
+						
+							while ($solicitudes= $result->fetch_assoc()){ 
+							?> 	
+						 <div class="cfila" style="	width:13%;"><?php echo $solicitudes['nombre'] . " " . $solicitudes['apellido'] ; ?> </div>
+						 <div class="cfila" style="	width:22%;"><?php echo $solicitudes ['email']; ?></div>
+						 <div class="cfila" style="	width:10%;"><?php echo $solicitudes['fechadesde']; ?></div> 
+						 <div class="cfila" style="	width:10%;"><?php echo $solicitudes['fechahasta']; ?></div>
+						<?php if ($solicitudes['comentariosolicitud'] != null) { ?>
+						<div class="cfila" style="	width:22%;"><?php echo ' " ' . $solicitudes['comentariosolicitud'] . ' " '?></div>
+						<?php } else { ?> 
+						<div class="cfila" style="	width:22%;"><a>Sin comentario</a> </div>
+						<?php }
+						if ($solicitudes['estado'] == 'espera')
+						{ ?>
+						<div class="cfila" style="width:8%;">
+							<a>En espera</a>
+						</div>
+						<div class="cfila" style="width:7%;">
+							<button type="submit" value="" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/aceptar.png" style="width:15px">
+							<button type="submit" value="" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/rechazar.png" style="width:15px">
+						</div>
+						<?php }
+						else if ($solicitudes['estado'] == 'aceptada') { ?>
+						<div class="cfila" style="width:8%;">
+							<a>Aceptada</a> <a><?php echo $solicitudes['fechaaceptada']; ?> </a>
+						</div>
+						<div class="cfila" style="width:7%;">
+							<button type="submit" value="" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/rechazar.png" style="width:15px;">
+						</div>
+							<?php 
+							}
+							else { ?> 
+						<div class="cfila" style="width:8%;"> <a>Rechazada</a></div>
+						<div class="cfila" style="width:7%;">
+							<button type="submit" value="" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/aceptar.png" style="width:15px;">
+						</div>
+						<?php } ?>
 				
-						<H3>Usuario que realizo la solicitud: </H3>
-					<p><?php echo $solicitudes['nombre']; echo ' '; echo $solicitudes['apellido']; echo '  - 	Email: '; echo $solicitudes ['email']; ?></p>
-					<H3>Fecha de solicitud: </H3>
-					<p><?php echo 'Desde: '; echo $solicitudes['fechadesde']; echo ' -  Hasta: '; echo $solicitudes['fechahasta']; ?></p>	
-					<H3>Estado de solicitud: </H3>
-					<p><?php 
-					if ($solicitudes['estado'] == 'espera')
-					{ ?>
-					En espera
-						<br><br>
-						<input type="submit" value="Aceptar" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)">
-						<input type="submit" value="Rechazar" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)">
-					<?php }
-					else if ($solicitudes['estado'] == 'aceptada') { ?>
-					Aceptada<br><br><input type="submit" value="Rechazar" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)">
-					<?php 
-					}
-					else { ?> Rechazada<br><br><input type="submit" value="Aceptar" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)">
-					<?php } ?></p>	
-					
-				</div>
-				</div>
-				<br>
-			<?php } }?>
-			</div>
-			<div class="campo">
+						<?php } } ?>
+					</div>
+					<div class="campo">
 						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
 					</div>
+			</div>
+			
 		</div>
-		<?php
+		<?php }
 			mysqli_close($conec);
 		?>
 	</body>

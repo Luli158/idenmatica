@@ -9,10 +9,10 @@ session_start();
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
 		<title>CouchInn</title>
 </head>
-<body background="img/fondoo.png">
-<div class="fondo">
+<body>
+<div>
 	<div>
-		<?php require ("menu.php"); ?>
+		<?php require ("menuu.php"); ?>
 	<div class='agregar'>
 	<div class="titulo">
 						<h3>Agregar un tipo de Couch</h3>

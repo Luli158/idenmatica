@@ -19,6 +19,10 @@ $result= $conp->query ($sql);
 	
 			$conp->query("UPDATE solicitudes SET idcouch='null' WHERE idcouch=$idc");
 		}
+		 $i = $conp->query("SELECT * FROM imagenescouches WHERE idcouch = $idc");
+		if (mysqli_num_rows($i) > 0){ 
+		  $conp->query("DELETE FROM imagenescouches WHERE idcouch=$idc");
+		}
 	 $conp->query("DELETE FROM couch WHERE idcouch = $idc");
 		?>
 		    <script type="text/javascript"> alert ("El Couch fue eliminado correctamente"); 

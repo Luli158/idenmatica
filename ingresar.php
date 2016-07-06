@@ -5,8 +5,9 @@
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
 		<title>CouchInn</title>
 	</head>
-	<body background="img/fondoo.png">
-		<div class='ingresar' id='ingresar'>
+	<body>
+	<?php include_once ("menuu.php");?>
+		<div class='ingresar' id='ingresar'><br>
 			<h1 style='color:6d6d6d'>Ingresar</h1>
 			<form method='post' name='ingresar' action='#'>
 				<p> Email:&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' name='email' id='email' value='<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>' required ></p> 
@@ -37,19 +38,20 @@
 						else { 
 							session_start();
 							$_SESSION['estado']="logueado";
-							$_SESSION['usuario']= $u['idusuario'];
+							$_SESSION['usuario']= $usuario;
+							$_SESSION['email']= $u['email'];
 							if ($u['administrador'] == 1){ 
 								$_SESSION['admin']=1;
 								Header('Location: vistaba.php');
 							}
 							else {
 								$_SESSION['admin']=0;
-								Header('Location: index.php'); 
+								Header('Location: perfil.php'); 
 							}
 						} 
 					}				
 				} ?>
-			</form>
+			</form><br>
 		</div>
 	</body>
 </html>
