@@ -38,7 +38,7 @@
 						else { 
 							session_start();
 							$_SESSION['estado']="logueado";
-							$_SESSION['usuario']= $usuario;
+							$_SESSION['usuario']= $u['idusuario'];
 							$_SESSION['email']= $u['email'];
 							if ($u['administrador'] == 1){ 
 								$_SESSION['admin']=1;

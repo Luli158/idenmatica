@@ -4,10 +4,21 @@
 		<link rel="icon" type="img/png" href="img/Favicon.png" />
 		<title>CouchInn</title>
 		<link rel ='stylesheet' type='text/css' href='./estilos.css'>
+			<script type="text/javascript">
+						function muestra_oculta(id){
+						if (document.getElementById){ //se obtiene el id
+						var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+						el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+						}
+						}
+						window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
+						muestra_oculta('contenido_a_mostrar');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+						}
+						</script>
 	</head>
 	<body>
 		<?php
-			include ('./menu.php');
+			include ('./menuu.php');
 			include_once("./connection.php");
 			$conec=connection();
 			$id=$_GET['id'];
@@ -100,7 +111,8 @@
 					<H3>Usuario que public&oacute: </H3>
 					<p>
 					<?php
-						$consulta=mysqli_query($conec,"SELECT nombre, apellido FROM usuarios WHERE idusuario=$couch[idusuario]");
+					$iduc = $couch['idusuario'];
+						$consulta=mysqli_query($conec,"SELECT nombre, apellido FROM usuarios WHERE idusuario= '$iduc'");
 						$dueño=mysqli_fetch_array($consulta);
 						echo $dueño['nombre'];
 					?> &nbsp
@@ -109,6 +121,12 @@
 					?>
 					</p>
 				</div>
+				
+				</br>
+					</br>
+					</br></br>
+					</br>
+					</br>
 
  <?php 			
  				if(!isset($_SESSION)) {
@@ -118,7 +136,13 @@
 					$c="SELECT * FROM solicitudes WHERE idcouch = '$id' AND idusuario = '$_SESSION[usuario]'";
 					$r=mysqli_query($conec,$c);
 					if(mysqli_num_rows($r)==0) {
-?>
+					
+?>				
+					</br>
+					</br>
+					</br>
+					
+						<div class="campo">
 						<div id="solicitud">
 							<div id="crear_solicitud">
 							<b>Solicitar Couch:</b>
@@ -134,10 +158,118 @@
 								</form>
 							</div>
 						</div>
+						</div>
 <?php						
 					}
 				}
 ?>
+					<p><a style='cursor: pointer;' onclick="muestra_oculta('mostrarOcultar')" title="">Calificaciones</a></p>	
+					<div id="mostrarOcultar" style='display:none;'>
+				<br>				
+				<div class='en_caja'>
+				<div class="campo">
+					<?php 
+						$conco="SELECT * FROM comentarios c INNER JOIN usuarios u ON c.idusuario = u.idusuario WHERE c.idcouch = $id";
+						if ($result= $conec->query ($conco))
+									{
+										while ($comen= $result->fetch_assoc()){
+					?> 
+					<div>
+						<?php echo $comen['fecha'];?>
+						<?php echo $comen['nombre'] . ' ' . $comen['apellido'];?>
+						<?php echo $comen['puntuacion'];?>
+						<?php if ($comen['comentario'] != NULL) {echo $comen['comentario']; }?>	
+					</div>
+					<?php } } ?>
+				</div>
+				</div>
+				<br>
+				<br>
+				
+				<?php 
+				
+				if (isset($_SESSION)){
+				$idu = $_SESSION['usuario'];
+				date_default_timezone_set('America/Argentina/Buenos_Aires');
+				$hoy = date("Y-m-d");
+				$sq=("SELECT * FROM solicitudes s INNER JOIN usuarios u ON s.idusuario = u.idusuario WHERE s.estado = 'aceptada' AND s.idusuario = '$idu' AND s.fechahasta < '$hoy'");
+				$result=mysqli_query($conec, $sq);
+				$result->fetch_assoc();
+					if(mysqli_num_rows($result) != 0) { 
+					$con = "SELECT * FROM comentarios c WHERE c.idusuario= $idu AND c.idcouch = $id";
+						$resu=mysqli_query($conec, $con);
+						$co = $resu->fetch_assoc();
+						if(mysqli_num_rows($resu) == 0) { ?>
+				<div class='en_caja'>
+				<div class="campo">
+					<form class="comentarios" method='POST' action="hacerComentario.php">
+						<div class="puntaje">
+						<select name="op"> 
+							<option id="1" value="1">1</option>
+							<option id="2" value="2">2</option>
+							<option id="3" value="3">3</option>
+							<option id="4" value="4">4</option>
+							<option id="5" value="5">5</option>
+						</select>
+						</div>
+						<div class="comentario">
+						<br/>
+							<input type="text" name="comentario">
+						</div>
+						<br/>
+						<input type="hidden" name="idc" value="<?php echo $id; ?>">
+						<input type="hidden" name="idu" value="<?php echo $idu; ?>">
+						<input type="submit" value="Enviar"> 
+					</form>
+				</div>
+				</div>
+				<?php } 
+				else {
+					echo $co['comentario'] . ' ' . $co['puntuacion'];
+					}
+				} } ?>
+			</div>
+				
+				<p><a>Preguntas</a></p>
+				<div id="preguntas">
+				<br>				
+				<div class='en_caja'>
+				<div class="campo">
+					<?php 
+						$conp="SELECT * FROM preguntas p INNER JOIN usuarios u ON p.idusuario = u.idusuario WHERE p.idcouch = $id";
+						if ($result= $conec->query ($conp))
+									{
+										while ($preg= $result->fetch_assoc()){
+					?> 
+					<div>
+						<?php echo $preg['fechaPreg'];?>
+						<?php echo $preg['nombre'] . ' ' . $preg['apellido'];?>
+						<?php echo $preg['pregunta'];?>
+						<?php if ($preg['respuesta'] != NULL) { echo $preg['respuesta']; }
+									else { 
+										if ($idu == $iduc) { ?>
+										 <form method='post' name='responder' action='responder.php'>
+										 <input type='text' name='respuesta' id='respuesta'>
+										 <input type='hidden' name='id' id='id' value='<?php echo $preg['idpregunta']; ?>'>
+										 <input type='hidden' name='idc' id='idc' value='<?php echo $id; ?>'>
+										 <input type='submit' value='Responder'> 
+										 </form>
+							<?php	} }?>	
+					</div>
+					<?php } } ?>
+				</div>
+				<div class="campo">
+					<?php if ($idu != $iduc) { ?>
+						<form method='post' name='preguntar' action='preguntar.php'>
+										 <input type='text' name='pregunta' id='pregunta'>
+										  <input type='hidden' name='idu' id='idu' value='<?php echo $idu; ?>'>
+										 <input type='hidden' name='idc' id='idc' value='<?php echo $id; ?>'>
+										 <input type='submit' value='Preguntar'> 
+										 </form>
+				<?php	} ?>
+				</div>
+				</div>
+				
 				<div class="campo">
 					<input type="button" value="Volver" onClick="window.location.href='buscar.php'">
 				</div>

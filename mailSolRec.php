@@ -1,24 +1,30 @@
 <?php 
 
-function enviar ($de, $para, $fecd, $fech)
+function enviarA ($de, $para, $cou, $fecd, $fech)
 {
 	include_once ("connection.php");
 	$con= connection();
-$cond ="SELECT * FROM usuarios WHERE idusuario = $de"; //DATOS DEL QUE MANDO SOLICITUD
+$cond ="SELECT * FROM usuarios WHERE idusuario = $para"; //DATOS DEL QUE MANDO SOLICITUD
 $usde = $con->query($cond);
 $ude= $usde->fetch_assoc();
 
 
-$conp ="SELECT email FROM usuarios WHERE idusuario = $para"; //DATOS DEL QUE MANDO SOLICITUD
+$conp ="SELECT email FROM usuarios WHERE idusuario = $de"; //DATOS DEL QUE RECHAZO SOLICITUD
 $uspara = $con->query($conp);
 $upara= $uspara->fetch_assoc();
 
 $usupara = $upara['email'];
+
+$res= $con->query ("SELECT * FROM couch WHERE idcouch = $cou ");
+$couch = $res->fetch_assoc();
+$c=$couch['titulo'];
+$idc=$couch['idcouch'];
+
 //Librerías para el envío de mail
 							include_once('class.phpmailer.php');
 							include_once('class.smtp.php');
 							//Recibir todos los parámetros del formulario
-							$asunto = "Has aceptado una solicitud";
+							$asunto = "Han rechazado su solicitud";
 							$ape= $ude['apellido'];
 							$nom = $ude['nombre'];
 							$dir = $ude['direccion'];
@@ -26,20 +32,17 @@ $usupara = $upara['email'];
 							$tel = $ude['telefono'];
 							$fecnac= $ude['fechanac'];
 							$email = $ude['email'];
-				
 							$mensaje = 
 							"<html>
-							<head> Usted a aceptado la solicitud de $ape $nom: </head>
+							<head> Han rechazado su solicitud para el Couch: </head>
 							<body>
-						<br/>	
+								 <a href='http://localhost/detalles_couch.php?id=$idc'> $c </a><br/> <br/>
 								 Desde el dia: $fecd al dia $fech<br/><br/>
-								Los datos de contacto: <br/><br/> 
-								$ape $nom<br/>
-								$email<br/></br>
-								Tel: $tel <br/><br/>
+								
 								Gracias, <br/>El equipo de CouchInn.
 							</body>
 							</html>";
+								
 							//$archivo = $_FILES['hugo'];
 
 							//Este bloque es importante

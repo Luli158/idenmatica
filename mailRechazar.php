@@ -1,15 +1,15 @@
 <?php 
 
-function enviar ($de, $para, $fecd, $fech)
+function enviar ($rechazo, $rechazado, $fecd, $fech)
 {
 	include_once ("connection.php");
 	$con= connection();
-$cond ="SELECT * FROM usuarios WHERE idusuario = $de"; //DATOS DEL QUE MANDO SOLICITUD
-$usde = $con->query($cond);
-$ude= $usde->fetch_assoc();
+	$cond ="SELECT * FROM usuarios WHERE idusuario = $rechazado"; //DATOS DEL QUE MANDO SOLICITUD
+	$usde = $con->query($cond);
+	$ude= $usde->fetch_assoc();
 
 
-$conp ="SELECT email FROM usuarios WHERE idusuario = $para"; //DATOS DEL QUE MANDO SOLICITUD
+$conp ="SELECT email FROM usuarios WHERE idusuario = $rechazo"; //DATOS DEL QUE MANDO SOLICITUD
 $uspara = $con->query($conp);
 $upara= $uspara->fetch_assoc();
 
@@ -18,7 +18,7 @@ $usupara = $upara['email'];
 							include_once('class.phpmailer.php');
 							include_once('class.smtp.php');
 							//Recibir todos los parámetros del formulario
-							$asunto = "Has aceptado una solicitud";
+							$asunto = "Has rechazado una solicitud";
 							$ape= $ude['apellido'];
 							$nom = $ude['nombre'];
 							$dir = $ude['direccion'];
@@ -29,14 +29,11 @@ $usupara = $upara['email'];
 				
 							$mensaje = 
 							"<html>
-							<head> Usted a aceptado la solicitud de $ape $nom: </head>
+							<head> Usted a rechazado la solicitud de $ape $nom: </head>
 							<body>
 						<br/>	
 								 Desde el dia: $fecd al dia $fech<br/><br/>
-								Los datos de contacto: <br/><br/> 
-								$ape $nom<br/>
-								$email<br/></br>
-								Tel: $tel <br/><br/>
+							
 								Gracias, <br/>El equipo de CouchInn.
 							</body>
 							</html>";

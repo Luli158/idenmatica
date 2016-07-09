@@ -9,6 +9,7 @@
 	$fechad = $sol ['fechadesde'];
 	$fechah= $sol ['fechahasta'];
 	$idc = $sol['idcouch'];
+	$idu = $sol['idusuario'];//ID DEL QUE MANDA LA SOLICITUD
 
 	$sql ="SELECT * FROM solicitudes s WHERE s.idcouch= $idc AND s.estado = 'aceptada' 
 				AND (s.fechadesde BETWEEN '$fechad' AND '$fechah' OR s.fechahasta BETWEEN '$fechad' AND '$fechah'
@@ -25,21 +26,21 @@
 		{
 		date_default_timezone_set('America/Argentina/Buenos_Aires');
 		$hoy = date("Y-m-d");
-		require_once ('enviarMail.php');
-		
-		
-		
-		$cons ="SELECT email FROM couch WHERE idcouch =$idc"  // ENVIAR MAIL A ESE Y ...
-		$e = $con->query($sql);
-		$usu = $_SESSION ['email']; // Y A ESTE
-		enviar($e, $usu);
+		require_once ('mailAceptar.php');
+		require_once ('mailSolAcep.php');
+		$usu = $_SESSION ['usuario']; // ID DEL QUE ACEPTA LA SOLICITUD		
+		enviar($idu, $usu, $fechad, $fechah);
+		enviarA($usu,$idu,$idc, $fechad, $fechah);
 		
 		$sql ="UPDATE solicitudes SET estado='aceptada', fechaaceptada = '$hoy' WHERE idsolicitud= $ids";
 		$con->query($sql);
 		$sql ="UPDATE solicitudes SET estado='rechazada' WHERE idcouch= $idc AND estado = 'espera' 
 				AND (fechadesde BETWEEN '$fechad' AND '$fechah' OR fechahasta BETWEEN '$fechad' AND '$fechah'
 				OR '$fechad' BETWEEN fechadesde AND fechahasta OR '$fechah' BETWEEN fechadesde AND fechahasta)";
-				$con->query($sql);	 ?>
+				$con->query($sql);	 
+				
+				
+				?>
 				<script type="text/javascript"> alert ("La solicitud fue aceptada y se han rechazado las solicitudes que coinciden con su fecha"); 
 	 window.location.href='miCouch.php?id=<?php echo $sol['idcouch']?>'; </script>
 		 
