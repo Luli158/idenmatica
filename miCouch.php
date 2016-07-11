@@ -70,9 +70,9 @@
 					
 				</div>
 				</div>
-				
-			<p><a style='cursor: pointer;' onclick="muestra_oculta('calificaciones')" title="">Calificaciones</a></p>
-			<div id="calificaciones" style='display:none;'>
+			<div id="calificaciones">	
+			<p><a style='cursor: pointer;' onclick="muestra_oculta('calificacionesOcultar')" title="">Calificaciones</a></p>
+			<div id="calificacionesOcultar" style='display:none;'>
 				<br>
 				
 				<div class='en_caja'>
@@ -84,16 +84,23 @@
 										while ($comen= $result->fetch_assoc()){
 					?> 
 					<div>
-						<?php echo $comen['fecha'];?>
-						<?php echo $comen['nombre'] . ' ' . $comen['apellido'];?>
-						<?php echo $comen['puntuacion'];?>
-						<?php if ($comen['comentario'] != NULL) {echo $comen['comentario']; }?>	
+					<?php
+							$cont = $comen['puntuacion'];
+							while ($cont > 0) { ?>
+								<img src='img/estrella.png' height='15px' width='15px'>
+								<?php $cont = $cont - 1;		
+										}?> <br/>	
+					<div class="campoCom"><?php if ($comen['comentario'] != NULL) {echo ' "' . $comen['comentario'] . '" '; }?></div>
+					<div class="campoCom"><?php echo $comen['nombre'] . ' ' . $comen['apellido'] . ' - ' . $comen['fecha'];?></div>
+						<br/>
+						
 					</div>
 					<?php } } ?>
 				</div>
 				</div>
 				<br>
 				<br>
+				</div>
 				
 				<?php 
 				date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -218,16 +225,23 @@
 						<?php } else { ?> 
 						<div class="cfila" style="	width:22%;"><a>Sin comentario</a> </div>
 						<?php }
+						date_default_timezone_set('America/Argentina/Buenos_Aires');
+						$hoy = date("Y-m-d");
 						if ($solicitudes['estado'] == 'espera')
-						{ ?>
+						{  ?>
 						<div class="cfila" style="width:8%;">
 							<a>En espera</a>
 						</div>
+						<?php if ($solicitudes['fechadesde'] > $hoy) { ?>
 						<div class="cfila" style="width:7%;">
 							<button type="submit" value="" onClick="javascript:aceptar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/aceptar.png" style="width:15px">
 							<button type="submit" value="" onClick="javascript:rechazar(<?php echo $solicitudes['idsolicitud']?>)"><img src="img/rechazar.png" style="width:15px">
-						</div>
-						<?php }
+						</div> <?php } 
+						else { ?>
+						<div class="cfila" style="width:7%;">
+							<a>Vencida</a>
+						</div> <?php }
+						}
 						else if ($solicitudes['estado'] == 'aceptada') { ?>
 						<div class="cfila" style="width:8%;">
 							<a>Aceptada</a> <a><?php echo $solicitudes['fechaaceptada']; ?> </a>

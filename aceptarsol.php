@@ -36,7 +36,7 @@
 		$con->query($sql);
 		$sql ="UPDATE solicitudes SET estado='rechazada' WHERE idcouch= $idc AND estado = 'espera' 
 				AND (fechadesde BETWEEN '$fechad' AND '$fechah' OR fechahasta BETWEEN '$fechad' AND '$fechah'
-				OR '$fechad' BETWEEN fechadesde AND fechahasta OR '$fechah' BETWEEN fechadesde AND fechahasta)";
+				OR '$fechad' BETWEEN fechadesde AND fechahasta OR '$fechah' BETWEEN fechadesde AND fechahasta) WHERE fechadesde < $hoy";
 				$con->query($sql);	 
 				
 				
