@@ -26,7 +26,7 @@ if(!isset($_SESSION))
 				if(isset($_SESSION['estado'])) { 
 					if ($_SESSION['admin']=='1') { ?>
 							<div class="botonRegistro"><a class="textR" href="vistaba.php">Backend</a></div>
-						<?php } else{ ?> <br><br> <?php } } ?>
+						<?php } } ?>
 				
 				<div id="textoindex">
 							<a style="font-size:60px; font-weight:700;">UN LUGAR DONDE QUEDARTE</a> <br>
@@ -56,10 +56,6 @@ if(!isset($_SESSION))
 						</div>
 					</form>
 			</div>
-			<div class="cuadro">
-				<div>
-			
-							
 		</div>
 	</body>
 		<footer>

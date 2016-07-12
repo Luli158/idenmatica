@@ -20,8 +20,8 @@ function tiene_letras(texto){
    return 0;
 }
 
-function esMayor(date){
-	var nacimiento=new Date(date);
+function esMayor(){
+	var nacimiento=document.registro.nacimiento.value;
 	var ndia = nacimiento.getDate()+1;//NO SE POR QUÉ ME TIRA UN NUMERO MENOS DEL QUE ELEGIS EN EL INPUT DATE
 	var nmes = nacimiento.getMonth()+1;
 	var nanio= nacimiento.getFullYear();
@@ -73,7 +73,7 @@ function validarRegistro(){
         document.registro.nacimiento.focus();
         return (false);
 	}
-	if (!esMayor(document.registro.nacimiento.value)) {
+	if (!esMayor()) {
 		alert("Para registrarse en CouchInn debes ser mayor de edad. Gracias.");
         document.registro.nacimiento.focus();
         return (false);

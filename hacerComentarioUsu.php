@@ -1,6 +1,6 @@
 <?php 
 
-	$op=$_POST['op'];
+	$op=$_POST['estrellas'];
 	$idu=$_POST['idu'];
 	$idud=$_POST['idud'];
 	$idc= $_POST['idc'];
@@ -17,8 +17,9 @@
 	$conec->query($sql); 
 	?>
 		
-	<script type="text/javascript">
+ 	<script type="text/javascript">
 		alert ('Se ha enviado tu puntuacion correctamente');
 		 window.location.href='miCouch.php?id=<?php echo $idc; ?>'; 
 	</script>
-	
+
+?>

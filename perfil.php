@@ -11,6 +11,10 @@
 </head>
 <body>
 	<?php include ('./menuu.php'); 
+				if(isset($_SESSION['estado'])) { 
+					if ($_SESSION['admin']=='1') { ?>
+							<div class="botonRegistro"><a class="textR" href="vistaba.php">Backend</a></div>
+						<?php } } 
 	include_once("connection.php");
 	$id=$_SESSION['usuario'];
 	$consulta=mysqli_query($conec,"SELECT * FROM usuarios WHERE usuarios.idusuario= '$id' ");

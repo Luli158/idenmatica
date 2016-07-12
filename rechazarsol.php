@@ -19,7 +19,7 @@
 		enviar($usu, $idu, $fechad, $fechah);
 		enviarA($idu, $usu, $idc, $fechad, $fechah);
 	}
-	
+
 	$sql ="UPDATE solicitudes SET estado='rechazada', fechaaceptada = NULL WHERE idsolicitud= $ids";
 
 	if ($con->query ($sql))

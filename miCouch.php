@@ -26,6 +26,7 @@
 						muestra_oculta('contenido_a_mostrar');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
 						}
 		</script>
+		               
 	</head>
 	<body>
 		<?php
@@ -87,7 +88,7 @@
 					<?php
 							$cont = $comen['puntuacion'];
 							while ($cont > 0) { ?>
-								<img src='img/estrella.png' height='15px' width='15px'>
+								<img src='img/estrella.png' height='20px' width='20px'>
 								<?php $cont = $cont - 1;		
 										}?> <br/>	
 					<div class="campoCom"><?php if ($comen['comentario'] != NULL) {echo ' "' . $comen['comentario'] . '" '; }?></div>
@@ -286,15 +287,18 @@
 								if(mysqli_num_rows($resu) == 0) { ?>
 									<div class="campo">
 										<form class="comentarios" method='POST' action="hacerComentarioUsu.php">
-											<div class="puntaje">
-											<select name="op"> 
-												<option id="1" value="1">1</option>
-												<option id="2" value="2">2</option>
-												<option id="3" value="3">3</option>
-												<option id="4" value="4">4</option>
-												<option id="5" value="5">5</option>
-											</select>
-											</div>
+											  <p class="clasificacion">
+													<input id="radio1" type="radio" name="estrellas" value="5"><!--
+												--><label for="radio1">★</label><!--
+												--><input id="radio2" type="radio" name="estrellas" value="4"><!--
+												--><label for="radio2">★</label><!--
+												--><input id="radio3" type="radio" name="estrellas" value="3"><!--
+												--><label for="radio3">★</label><!--
+												--><input id="radio4" type="radio" name="estrellas" value="2"><!--
+												--><label for="radio4">★</label><!--
+												--><input id="radio5" type="radio" name="estrellas" value="1"><!--
+												--><label for="radio5">★</label>
+											</p>
 											<div class="comentario">
 											<br/>
 												<input type="text" name="comentario">
@@ -307,13 +311,13 @@
 										</form>
 									</div>
 							<?php } 
-									else {
-										echo $co['comentario'] . ' ' . $co['puntuacion'];
-									}
+									//else {
+										//echo $co['comentario'] . ' ' . $co['puntuacion'];
+									//}
 									} } ?>
 							</div>
-						</div>
-				
+						</div>		
+			
 					<div class="campo">
 						<input type="button" value="Volver" onClick="window.location.href='misCouches.php' ">
 					</div>

@@ -7,8 +7,8 @@
 			$idc=$_POST['idc'];
 			mysqli_query($conec,"UPDATE preguntas SET respuesta='$respuesta' WHERE idpregunta = $idp");
 			
-			$self = $_SERVER['HTTP_REFERER'];
-			if (strpos($self,"detalles_couch.php")) { 
+			$anterior = $_SERVER['HTTP_REFERER'];
+			if (strpos($anterior,"detalles_couch.php")) { 
 			?>	<script type="text/javascript">
 			window.location.href='detalles_couch.php?id=<?php echo $idc; ?>'; </script>
 			<?php	} else { ?>
